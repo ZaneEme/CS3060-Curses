@@ -1,0 +1,4 @@
+# Ignore everything in this directory
+*
+# But still track as a placeholder to ensure directory exists in git
+!.gitignore
