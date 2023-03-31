@@ -1,12 +1,11 @@
 #pragma once
 class Board {
 public:
+    Board() {
+        construct(0, 0)
+    }
     Board(int height, int width) {
-        int maxX, maxY;
-        getmaxyx(stdscr, maxY, maxX);
-
-        board_win = newwin(height, width, (maxY / 2) - (height / 2), (maxX / 2) - (width / 2));
-        
+        construct(height, width);
     }
     
     void initialize() {
@@ -16,6 +15,14 @@ public:
 
     void addBorder() {
         box(board_win, 0, 0);
+    }
+
+    void addAt(int y, int x, chtype ch) {
+        mvwaddch(board_win, y, x, ch);
+    }
+
+    chtype getInput() {
+        return wgetch(board_win);
     }
 
     void clear() {
@@ -29,4 +36,11 @@ public:
 
 private:
     WINDOW *board_win;
+
+    void construct(int height, int width) {
+        int maxX, maxY;
+        getmaxyx(stdscr, maxY, maxX);
+
+        board_win = newwin(height, width, (maxY / 2) - (height / 2), (maxX / 2) - (width / 2));
+    }
 };
