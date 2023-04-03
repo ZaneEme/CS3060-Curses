@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include "src/Board.hpp"
 #include "src/Game.hpp"
+#include "src/Drawable.hpp"
 /**
  * Will be the main runner class everything branches from
 */
@@ -13,6 +14,7 @@ int main(int argc, char **argv) {
     refresh();
 
     noecho();
+    curs_set(0);
 
     Game game(BOARD_ROWS, BOARD_COLS);
 

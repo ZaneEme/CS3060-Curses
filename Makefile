@@ -1,4 +1,4 @@
 all: main
 
-main: main.cpp src/Board.hpp src/Game.hpp
+main: main.cpp src/*
 	g++ main.cpp -lncurses -o bin/main
