@@ -18,7 +18,7 @@ C++ Curses TUI game for CS 3060
 ## Gameplay
 The game starts with two racers in the top corners. Each racer leaves a trail behind them everywhere they go. Win by cutting your opponent off without hitting a wall.
 
-![Image](img\Tron_Start_Game.png)
+![Image](https://github.com/ZaneEme/CS3060-Curses/blob/main/img/Tron_Start_Game.PNG)
 
 
 ### Inspiration:
