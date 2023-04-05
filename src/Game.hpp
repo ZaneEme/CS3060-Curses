@@ -8,16 +8,25 @@
 #include "Drawable.hpp"
 #include "Racer.hpp"
 
-class Game {
+class Game
+{
     Board board;
     bool game_over;
     chtype loser;
     Racer racerA{'*'};
     Racer racerB{'#'};
 
+    /**
+     * Checks if a the next piece will hit a wall or the enemy,
+     * if not adds to the head of the racer.
+     * @param racer The racer "train" to check against
+     * @param next  The piece to be added if all checks pass
+     */
+    void handleNextPlace(Racer &racer, RacerPiece next)
+    {
 
-    void handleNextPlace(Racer &racer, RacerPiece next) {
-        if (board.getCharAt(next.getY(), next.getX()) != ' ') {
+        if (board.getCharAt(next.getY(), next.getX()) != ' ')
+        {
             game_over = true;
             loser = racer.getSymbol();
         }
@@ -27,13 +36,23 @@ class Game {
     }
 
 public:
-    Game(int height, int width) {
+    /**
+     * Creates a new board and initializes it.
+     * @param height the height of the board in chars
+     * @param width the width of the board in chars
+     */
+    Game(int height, int width)
+    {
         board = Board(height, width);
         initialize();
     }
 
-
-    void initialize() { 
+    /**
+     * Sets up the board, places racer A and racer B in top corners.
+     * @see Game()
+     */
+    void initialize()
+    {
         board.initialize();
         game_over = false;
         loser = ' ';
@@ -54,61 +73,74 @@ public:
         handleNextPlace(racerB, racerB.nextHead());
         racerB.setDirection(left);
         handleNextPlace(racerB, racerB.nextHead());
-
     }
 
-    void processInput() {
+    /**
+     * Changes direction for racers based on WASD or arrow keys.
+     */
+    void processInput()
+    {
         chtype input = board.getInput();
 
-        switch(input) {
-            case KEY_UP:
-                racerB.setDirection(up);
-                break;
-            case 'w':
-                racerA.setDirection(up);
-                break;
-            case KEY_DOWN:
-                racerB.setDirection(down);
-                break;
-            case 's':
-                racerA.setDirection(down);
-                break;
-            case KEY_RIGHT:
-                racerB.setDirection(right);
-                break;
-            case 'd':
-                racerA.setDirection(right);
-                break;
-            case KEY_LEFT:
-                racerB.setDirection(left);
-                break;
-            case 'a':
-                racerA.setDirection(left);
-                break;
-            case 'p':
-                board.setTimeout(-1);
-                while(board.getInput() != 'p');
-                board.setTimeout(300);
-                break;
-            default:
-                break;
+        switch (input)
+        {
+        case KEY_UP:
+            racerB.setDirection(up);
+            break;
+        case 'w':
+            racerA.setDirection(up);
+            break;
+        case KEY_DOWN:
+            racerB.setDirection(down);
+            break;
+        case 's':
+            racerA.setDirection(down);
+            break;
+        case KEY_RIGHT:
+            racerB.setDirection(right);
+            break;
+        case 'd':
+            racerA.setDirection(right);
+            break;
+        case KEY_LEFT:
+            racerB.setDirection(left);
+            break;
+        case 'a':
+            racerA.setDirection(left);
+            break;
+        case 'p':
+            board.setTimeout(-1);
+            while (board.getInput() != 'p')
+                ;
+            board.setTimeout(300);
+            break;
+        default:
+            break;
         }
     }
 
-    void updateState() {
+    /**
+     * Places new heads for each racer and checks collisions.
+     * @see handleNextPlace()
+     */
+    void updateState()
+    {
         handleNextPlace(racerA, racerA.nextHead());
         handleNextPlace(racerB, racerB.nextHead());
     }
 
-    void redraw() {
+    void redraw()
+    {
         board.refresh();
     }
 
-    bool isOver() {
+    bool isOver()
+    {
         return game_over;
     }
 
-    char getLoser() {
+    char getLoser()
+    {
         return loser;
     }
 };

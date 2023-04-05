@@ -4,22 +4,24 @@
 #include "src/Game.hpp"
 #include "src/Drawable.hpp"
 /**
- * Will be the main runner class everything branches from
-*/
-
-int main(int argc, char **argv) {
+ * Responsible for the main loop and ending the game.
+ * @return The cli exit code
+ */
+int main(int argc, char **argv)
+{
     static int BOARD_ROWS = 20;
     static int BOARD_COLS = BOARD_ROWS * 2.5;
 
     initscr();
-    refresh();  
+    refresh();
 
     noecho();
     curs_set(0);
 
     Game game(BOARD_ROWS, BOARD_COLS);
 
-    while (!game.isOver()) {
+    while (!game.isOver())
+    {
         game.processInput();
         game.updateState();
 
