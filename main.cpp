@@ -1,3 +1,4 @@
+#include <iostream>
 #include <ncurses.h>
 #include "src/Board.hpp"
 #include "src/Game.hpp"
@@ -11,7 +12,7 @@ int main(int argc, char **argv) {
     static int BOARD_COLS = BOARD_ROWS * 2.5;
 
     initscr();
-    refresh();
+    refresh();  
 
     noecho();
     curs_set(0);
@@ -23,12 +24,10 @@ int main(int argc, char **argv) {
         game.updateState();
 
         game.redraw();
-
-
     }
-
-    getch();
     endwin();
+
+    std::cout << "Game over!" << std::endl;
 
     return 0;
 }

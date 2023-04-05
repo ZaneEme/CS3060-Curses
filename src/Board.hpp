@@ -37,6 +37,10 @@ public:
          while((mvwinch(board_win, y = rand() % height, x = rand() % width)) != ' ');
     }
 
+    chtype getCharAt(int y, int x) {
+        return mvwinch(board_win, y, x);
+    }
+
     void clear() {
         wclear(board_win);
     }
@@ -61,7 +65,7 @@ private:
         this->width = width;
 
         board_win = newwin(height, width, (maxY / 2) - (height / 2), (maxX / 2) - (width / 2));
-        setTimeout(500);
+        setTimeout(300);
         keypad(board_win, true);
     }
 };

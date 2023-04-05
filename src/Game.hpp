@@ -22,18 +22,30 @@ class Game {
         board.add(*apple);
     }
 
-    void handleNextPlace(SnakePiece next) {
-        // if an apple exists and you're not on it
-        if (apple != NULL && (next.getX() != apple->getX() || next.getY() != apple->getY())) {
-            //remove last piece
-            int emptyRow = snake.tail().getY();
-            int emptyCol = snake.tail().getX();
-            board.add(Empty(emptyRow, emptyCol));
+    void destroyApple() {
+        delete apple;
+        apple = NULL;
+    }
 
-            snake.removePiece();
-        } else {
-            delete apple;
-            apple = NULL;
+    void handleNextPlace(SnakePiece next) {
+        if (apple != NULL) {
+            switch (board.getCharAt(next.getY(), next.getX())) {
+                case 'A':
+                    destroyApple();
+                    break;
+                case ' ': 
+                {
+                    // remove a part from the tail
+                    int emptyRow = snake.tail().getY();
+                    int emptyCol = snake.tail().getX();
+                    board.add(Empty(emptyRow, emptyCol));
+                    snake.removePiece();
+                    break;
+                }
+                default:
+                    game_over = true;
+                    break;
+            }
         }
         // add piece to front
         board.add(next);
@@ -94,7 +106,7 @@ public:
             case 'p':
                 board.setTimeout(-1);
                 while(board.getInput() != 'p');
-                board.setTimeout(500);
+                board.setTimeout(300);
                 break;
             default:
                 break;
@@ -102,9 +114,7 @@ public:
     }
 
     void updateState() {
-        SnakePiece next = snake.nextHead();
-
-        handleNextPlace(next);
+        handleNextPlace(snake.nextHead());
 
         if (apple == NULL) {
             createApple();
