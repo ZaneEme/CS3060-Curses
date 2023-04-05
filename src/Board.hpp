@@ -11,7 +11,6 @@ public:
         construct(height, width);
     }
 
-    
     void initialize() {
         clear();
         refresh();

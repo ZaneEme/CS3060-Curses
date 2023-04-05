@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
     }
     endwin();
 
-    std::cout << "Game over!" << std::endl;
+    std::cout << "Game over! " << game.getLoser() << " loses!" << std::endl;
 
     return 0;
 }

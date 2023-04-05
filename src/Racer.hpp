@@ -10,28 +10,35 @@ enum Direction {
     right = 2
 };
 
-class SnakePiece : public Drawable {
+class RacerPiece : public Drawable {
 public:
-    SnakePiece() {
+    RacerPiece() {
         this->x = this->y = 0;
         this->icon = '#';
     }
-    SnakePiece(int y, int x) {
+    RacerPiece(int y, int x, chtype icon) {
         this->y = y;
         this->x = x;
-        this->icon = '#';
+        this->icon = icon;
     }
 };
 
-class Snake {
-    std::queue<SnakePiece> prev_pieces;
+class Racer {
+private:
+    std::queue<RacerPiece> prev_pieces;
     Direction cur_dir;
+    chtype symbol;
 public:
-    Snake() {
+    Racer() {
+        symbol = '#';
         cur_dir = down;
     }
+    Racer(chtype icon) {
+        cur_dir = down;
+        symbol = icon;
+    }
 
-    void addPiece(SnakePiece piece) {
+    void addPiece(RacerPiece piece) {
         prev_pieces.push(piece);
     }
 
@@ -39,11 +46,11 @@ public:
         prev_pieces.pop();
     }
 
-    SnakePiece tail() {
+    RacerPiece tail() {
         return prev_pieces.front();
     }
 
-    SnakePiece head() {
+    RacerPiece head() {
         return prev_pieces.back();
     }
 
@@ -51,12 +58,16 @@ public:
         return cur_dir;
     }
 
+    chtype getSymbol() {
+        return symbol;
+    }
+
     void setDirection(Direction dir) {
         if(cur_dir + dir != 0)
             cur_dir = dir;
     }
 
-    SnakePiece nextHead() {
+    RacerPiece nextHead() {
         int row = head().getY();
         int col = head().getX();
 
@@ -74,6 +85,6 @@ public:
                 col++;
                 break;
         }
-        return SnakePiece(row, col);
+        return RacerPiece(row, col, this->symbol);
     }
 };

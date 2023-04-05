@@ -4,52 +4,26 @@
 #include <stdlib.h>
 
 #include "Board.hpp"
-#include "Apple.hpp"
 #include "Empty.hpp"
 #include "Drawable.hpp"
-#include "Snake.hpp"
+#include "Racer.hpp"
 
 class Game {
     Board board;
     bool game_over;
-    Apple *apple;
-    Snake snake;
+    chtype loser;
+    Racer racerA{'*'};
+    Racer racerB{'#'};
 
-    void createApple() {
-        int y, x;
-        board.getEmptyCoordinates(y, x);
-        apple = new Apple(y, x);
-        board.add(*apple);
-    }
 
-    void destroyApple() {
-        delete apple;
-        apple = NULL;
-    }
-
-    void handleNextPlace(SnakePiece next) {
-        if (apple != NULL) {
-            switch (board.getCharAt(next.getY(), next.getX())) {
-                case 'A':
-                    destroyApple();
-                    break;
-                case ' ': 
-                {
-                    // remove a part from the tail
-                    int emptyRow = snake.tail().getY();
-                    int emptyCol = snake.tail().getX();
-                    board.add(Empty(emptyRow, emptyCol));
-                    snake.removePiece();
-                    break;
-                }
-                default:
-                    game_over = true;
-                    break;
-            }
+    void handleNextPlace(Racer &racer, RacerPiece next) {
+        if (board.getCharAt(next.getY(), next.getX()) != ' ') {
+            game_over = true;
+            loser = racer.getSymbol();
         }
         // add piece to front
         board.add(next);
-        snake.addPiece(next);
+        racer.addPiece(next);
     }
 
 public:
@@ -58,29 +32,29 @@ public:
         initialize();
     }
 
-    ~Game() {
-        delete apple;
-    }
 
-    void initialize() {
-        apple = NULL; 
+    void initialize() { 
         board.initialize();
         game_over = false;
+        loser = ' ';
         srand(time(NULL));
 
-        snake.setDirection(down);
+        // racer A
+        racerA.setDirection(down);
+        handleNextPlace(racerA, RacerPiece(1, 1, racerA.getSymbol()));
+        handleNextPlace(racerA, racerA.nextHead());
+        handleNextPlace(racerA, racerA.nextHead());
+        racerA.setDirection(right);
+        handleNextPlace(racerA, racerA.nextHead());
 
-        handleNextPlace(SnakePiece(1, 1));
+        // racer B
+        racerB.setDirection(down);
+        handleNextPlace(racerB, RacerPiece(1, 45, racerB.getSymbol()));
+        handleNextPlace(racerB, racerB.nextHead());
+        handleNextPlace(racerB, racerB.nextHead());
+        racerB.setDirection(left);
+        handleNextPlace(racerB, racerB.nextHead());
 
-        handleNextPlace(snake.nextHead());
-        handleNextPlace(snake.nextHead());
-
-        snake.setDirection(right);
-        handleNextPlace(snake.nextHead());
-
-        if (apple == NULL) {
-            createApple();
-        }
     }
 
     void processInput() {
@@ -88,20 +62,28 @@ public:
 
         switch(input) {
             case KEY_UP:
+                racerB.setDirection(up);
+                break;
             case 'w':
-                snake.setDirection(up);
+                racerA.setDirection(up);
                 break;
             case KEY_DOWN:
+                racerB.setDirection(down);
+                break;
             case 's':
-                snake.setDirection(down);
+                racerA.setDirection(down);
                 break;
             case KEY_RIGHT:
+                racerB.setDirection(right);
+                break;
             case 'd':
-                snake.setDirection(right);
+                racerA.setDirection(right);
                 break;
             case KEY_LEFT:
+                racerB.setDirection(left);
+                break;
             case 'a':
-                snake.setDirection(left);
+                racerA.setDirection(left);
                 break;
             case 'p':
                 board.setTimeout(-1);
@@ -114,11 +96,8 @@ public:
     }
 
     void updateState() {
-        handleNextPlace(snake.nextHead());
-
-        if (apple == NULL) {
-            createApple();
-        }
+        handleNextPlace(racerA, racerA.nextHead());
+        handleNextPlace(racerB, racerB.nextHead());
     }
 
     void redraw() {
@@ -127,5 +106,9 @@ public:
 
     bool isOver() {
         return game_over;
+    }
+
+    char getLoser() {
+        return loser;
     }
 };
