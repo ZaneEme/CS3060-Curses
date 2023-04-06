@@ -14,7 +14,7 @@ public:
     }
     /**
      * Creates a board with given width and height.
-     * @param height, width the size of the board to be created
+     * @param height,width the size of the board to be created
      * @see Board()
      */
     Board(int height, int width)

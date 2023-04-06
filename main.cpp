@@ -14,7 +14,6 @@ int main(int argc, char **argv)
 
     initscr();
     refresh();
-
     noecho();
     curs_set(0);
 
@@ -24,7 +23,6 @@ int main(int argc, char **argv)
     {
         game.processInput();
         game.updateState();
-
         game.redraw();
     }
     endwin();

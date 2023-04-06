@@ -24,7 +24,6 @@ class Game
      */
     void handleNextPlace(Racer &racer, RacerPiece next)
     {
-
         if (board.getCharAt(next.getY(), next.getX()) != ' ')
         {
             game_over = true;
@@ -38,8 +37,7 @@ class Game
 public:
     /**
      * Creates a new board and initializes it.
-     * @param height the height of the board in chars
-     * @param width the width of the board in chars
+     * @param height,width the size of the board in chars
      */
     Game(int height, int width)
     {
@@ -113,6 +111,9 @@ public:
             while (board.getInput() != 'p')
                 ;
             board.setTimeout(300);
+            break;
+        case 'q':
+            game_over = true;
             break;
         default:
             break;
