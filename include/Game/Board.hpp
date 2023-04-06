@@ -1,98 +1,63 @@
 #pragma once
 #include <ncurses.h>
-#include "Drawable.hpp"
-#include <stdlib.h>
+
+class Drawable;
 class Board
 {
 public:
     /**
      * Creates a new board with 0 width and 0 height.
      */
-    Board()
-    {
-        construct(0, 0);
-    }
+    Board();
     /**
      * Creates a board with given width and height.
      * @param height,width the size of the board to be created
      * @see Board()
      */
-    Board(int height, int width)
-    {
-        construct(height, width);
-    }
+    Board(int height, int width);
 
     /**
      * Clears the screen and refreshes the buffer.
      */
-    void initialize()
-    {
-        clear();
-        refresh();
-    }
+    void initialize();
 
     /**
      * Adds a border around the board
      */
-    void addBorder()
-    {
-        box(board_win, 0, 0);
-    }
+    void addBorder();
 
     /**
      * Add a drawable to the board at it's location.
      * @param drawable the piece to be added to the board
      */
-    void add(Drawable drawable)
-    {
-        addAt(drawable.getY(), drawable.getX(), drawable.getIcon());
-    }
+    void add(Drawable drawable);
 
     /**
      * Adds a char to the board at a given location.
      * @param y,x the location of the char
      * @param ch the char to be drawn
      */
-    void addAt(int y, int x, chtype ch)
-    {
-        mvwaddch(board_win, y, x, ch);
-    }
+    void addAt(int y, int x, chtype ch);
 
-    chtype getInput()
-    {
-        return wgetch(board_win);
-    }
+    chtype getInput();
 
     /**
      * Returns the char at a given location
      * @param y,x the location to search
      * @returns the char on the board at y,x
      */
-    chtype getCharAt(int y, int x)
-    {
-        return mvwinch(board_win, y, x);
-    }
+    chtype getCharAt(int y, int x);
 
-    void clear()
-    {
-        wclear(board_win);
-    }
+    void clear();
 
     /**
      * Ensures a border is added and refreshes the screen.
      */
-    void refresh()
-    {
-        addBorder();
-        wrefresh(board_win);
-    }
+    void refresh();
     /**
      * Sets the timeout for awaiting an input.
      */
-    void setTimeout(int timeout)
-    {
-        wtimeout(board_win, timeout);
-    }
+    void setTimeout(int timeout);
 
 private:
     WINDOW *board_win;
@@ -104,15 +69,5 @@ private:
      * @param height,width the size of the board to be created.
      * @see Board()
      */
-    void construct(int height, int width)
-    {
-        int maxX, maxY;
-        getmaxyx(stdscr, maxY, maxX);
-        this->height = height;
-        this->width = width;
-
-        board_win = newwin(height, width, (maxY / 2) - (height / 2), (maxX / 2) - (width / 2));
-        setTimeout(300);
-        keypad(board_win, true);
-    }
+    void construct(int height, int width);
 };
