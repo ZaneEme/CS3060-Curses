@@ -2,9 +2,6 @@
 #include <ncurses.h>
 #include "include/Game/Board.hpp"
 #include "include/Game/Game.hpp"
-#include "include/Game/Drawable.hpp"
-#include "include/Game/Empty.hpp"
-#include "include/Game/Racer.hpp"
 /**
  * Responsible for the main loop and ending the game.
  * @return The cli exit code

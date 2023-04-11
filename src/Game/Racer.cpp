@@ -1,6 +1,5 @@
 #include <ncurses.h>
 #include <queue>
-#include "../../include/Game/Drawable.hpp"
 #include "../../include/Game/Racer.hpp"
 
 /**

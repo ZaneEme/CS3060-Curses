@@ -3,8 +3,6 @@
 #include <stdlib.h>
 
 #include "../../include/Game/Board.hpp"
-#include "../../include/Game/Empty.hpp"
-#include "../../include/Game/Drawable.hpp"
 #include "../../include/Game/Racer.hpp"
 #include "../../include/Game/Game.hpp"
 
