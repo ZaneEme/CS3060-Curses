@@ -6,15 +6,6 @@
 #include <ncurses.h>
 
 class Menu {
- public:
-  Menu(int x, int y, int width, int height);
-  ~Menu();
-
-  void AddItem(std::string text);
-  void SetSelectedIndex(int index);
-  std::string GetSelectedItem();
-  int GetChoice();
-
  private:
   WINDOW *menu_window;
   std::vector<struct MenuEntry> items;
@@ -24,6 +15,15 @@ class Menu {
     std::string text;
     int value;
   };
+
+ public:
+  Menu(int x, int y, int width, int height);
+  ~Menu();
+
+  void AddItem(std::string text);
+  void SetSelectedIndex(int index);
+  std::string GetSelectedItem();
+  int GetChoice();
 };
 
 #endif // MENU_H
