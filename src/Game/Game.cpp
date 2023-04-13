@@ -1,5 +1,4 @@
 #include <ncurses.h>
-#include <time.h>
 #include <stdlib.h>
 
 #include "../../include/Game/Board.hpp"
@@ -45,7 +44,6 @@ void Game::initialize()
     board.initialize();
     game_over = false;
     loser = ' ';
-    srand(time(NULL));
 
     // racer A
     racerA.setDirection(down);

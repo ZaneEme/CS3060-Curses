@@ -12,7 +12,7 @@ Menu::Menu(int height, int width)
 
 void Menu::refreshMenu()
 {
-  for (int i = 0; i < items.size(); i++)
+  for (int i = 0; i < int(items.size()); i++)
   {
     if (i == selected_index)
     {
@@ -53,7 +53,7 @@ int Menu::GetChoice()
       selected_index--;
     }
     // if down and not at bottom
-    else if (key == KEY_DOWN && selected_index < (items.size() - 1))
+    else if (key == KEY_DOWN && selected_index < int(items.size() - 1))
     {
       selected_index++;
     }

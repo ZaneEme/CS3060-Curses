@@ -18,7 +18,7 @@ int main(int argc, char **argv)
     noecho();
     curs_set(0);
 
-    int maxX, maxY, playable;
+    int maxX, maxY;
     getmaxyx(stdscr, maxY, maxX);
     Menu menu(BOARD_ROWS, BOARD_COLS);
 
