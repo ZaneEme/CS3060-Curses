@@ -28,10 +28,9 @@ int main(int argc, char **argv)
         menu.AddItem("Start Game");
         menu.AddItem("Quit");
 
-        int choice = menu.GetChoice();
         Game game(BOARD_ROWS, BOARD_COLS);
 
-        switch (choice)
+        switch (menu.GetChoice())
         {
         case 0:
             // Starts the game.
