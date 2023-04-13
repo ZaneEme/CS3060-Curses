@@ -42,9 +42,12 @@ void Menu::AddItem(std::string text)
 int Menu::GetChoice()
 {
   chtype key;
+  selected_index = 0;
 
   while (key != '\n')
   {
+    // Refresh data
+    refreshMenu();
     key = wgetch(menu_window);
 
     // if up and not at top
@@ -57,8 +60,6 @@ int Menu::GetChoice()
     {
       selected_index++;
     }
-    // Refresh the menu.
-    refreshMenu();
   }
   return selected_index;
 }
