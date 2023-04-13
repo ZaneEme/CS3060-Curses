@@ -48,6 +48,7 @@ int Menu::GetChoice()
   {
     // Refresh data
     refreshMenu();
+
     key = wgetch(menu_window);
 
     // if up and not at top

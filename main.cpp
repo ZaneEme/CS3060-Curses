@@ -20,17 +20,22 @@ int main(int argc, char **argv)
 
     int maxX, maxY;
     getmaxyx(stdscr, maxY, maxX);
-    Menu menu(BOARD_ROWS, BOARD_COLS);
 
     if (maxY > BOARD_ROWS && maxX > BOARD_COLS)
     {
+        Menu menu(BOARD_ROWS, BOARD_COLS);
         menu.printLogo();
         menu.AddItem("Start Game");
         menu.AddItem("Quit");
 
-        Game game(BOARD_ROWS, BOARD_COLS);
+        // refresh to show initial screen
+        menu.refreshMenu();
 
-        switch (menu.GetChoice())
+        /* GetChoice needs ran before game creation to stop screen buffering */
+        int choice = menu.GetChoice();
+
+        Game game(BOARD_ROWS, BOARD_COLS);
+        switch (choice)
         {
         case 0:
             // Starts the game.
