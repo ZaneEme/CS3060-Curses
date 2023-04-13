@@ -1,4 +1,4 @@
 all: main
 
 main: main.cpp src/* include/*
-	g++ main.cpp src/Game/* -lncurses -o bin/main
+	g++ main.cpp src/Game/* src/Menu/* -lncurses -o bin/main

@@ -1,81 +1,98 @@
 #include <ncurses.h>
-#include <menu.h>
-// Base class, everything extends
-class Menu {
- private:
-  WINDOW *menu_window;
-  std::vector<struct MenuEntry> items;
-  int selected_index;
+#include <string>
+#include "../../include/Menu/Menu.hpp"
 
-  struct MenuEntry {
-    std::string text;
-    int value;
-  };
+Menu::Menu(int height, int width)
+{
+  cbreak();
+  construct(height, width);
+  box(menu_window, 0, 0);
+  refreshMenu();
+}
 
- public:
-  Menu(int x, int y, int width, int height) {
-    // Initialize ncurses.
-    initscr();
-    cbreak();
-    noecho();
-
-    // Create the menu window.
-    menu_window = newwin(height, width, y, x);
-    box(menu_window, 0, 0);
-
-    // Add menu items.
-    for (int i = 0; i < items.size(); i++) {
-      mvwaddstr(menu_window, i + 1, 1, items[i].text.c_str());
+void Menu::refreshMenu()
+{
+  for (int i = 0; i < items.size(); i++)
+  {
+    if (i == selected_index)
+    {
+      wattron(menu_window, A_REVERSE);
     }
 
-    // Show the menu.
-    wrefresh(menu_window);
+    mvwaddstr(menu_window, (height / 2) + i, (width / 2) - (items[i].length() / 2), items[i].c_str());
+    wattroff(menu_window, A_REVERSE);
   }
+  refresh();
+}
 
-  ~Menu() {
-    // Clean up.
-    delwin(menu_window);
-    endwin();
-  }
+Menu::~Menu()
+{
+  delwin(menu_window);
+  endwin();
+}
 
-  // Add a menu item.
-  void AddItem(std::string text) {
-    items.push_back({text, -1});
-  }
+void Menu::AddItem(std::string text)
+{
+  items.push_back(text);
+}
 
-  // Set the selected item.
-  void SetSelectedIndex(int index) {
-    selected_index = index;
-  }
+/**
+ * Loops until user presses enter, arrow keys change options
+ */
+int Menu::GetChoice()
+{
+  chtype key;
 
-  // Get the selected item.
-  std::string GetSelectedItem() {
-    return items[selected_index].text;
-  }
+  while (key != '\n')
+  {
+    key = wgetch(menu_window);
 
-  // Get the user's choice.
-  int GetChoice() {
-    // Get the user's input.
-    int key = wgetch(menu_window);
-
-    // If the user pressed an arrow key, move the selection.
-    if (key == KEY_UP) {
-      if (selected_index > 0) {
-        selected_index--;
-      }
-    } else if (key == KEY_DOWN) {
-      if (selected_index < items.size() - 1) {
-        selected_index++;
-      }
-    } else if (key == KEY_ENTER) {
-      // The user has selected an item.
-      return selected_index;
+    // if up and not at top
+    if (key == KEY_UP && selected_index > 0)
+    {
+      selected_index--;
     }
-
+    // if down and not at bottom
+    else if (key == KEY_DOWN && selected_index < (items.size() - 1))
+    {
+      selected_index++;
+    }
     // Refresh the menu.
-    wrefresh(menu_window);
-
-    // Keep looping until the user presses enter.
-    return -1;
+    refreshMenu();
   }
-};
+  return selected_index;
+}
+
+void Menu::refresh()
+{
+  box(menu_window, 0, 0);
+  wrefresh(menu_window);
+}
+
+
+void Menu::construct(int height, int width) {
+  int maxX, maxY;
+  getmaxyx(stdscr, maxY, maxX);
+  this->height = height;
+  this->width = width;
+
+  menu_window = newwin(height, width, (maxY / 2) - (height / 2), (maxX / 2) - (width / 2));
+  wtimeout(menu_window, 300);
+  keypad(menu_window, true);
+}
+
+void Menu::printLogo() {
+    std::string logo[] = {
+    "   ####### ######  ####### #     # ", 
+    "      #    #     # #     # ##    # ",
+    "      #    #     # #     # # #   # ",
+    "      #    ######  #     # #  #  # ",
+    "      #    #   #   #     # #   # # ",
+    "      #    #    #  #     # #    ## ",
+    "      #    #     # ####### #     # ",
+    };
+                                    
+  for(int i = 0; i < 7; i++) {
+    mvwaddstr(menu_window, i + 2, (width / 2) - 19, logo[i].c_str());
+  }
+}

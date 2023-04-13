@@ -50,7 +50,7 @@ void Game::initialize()
 
     // racer A
     racerA.setDirection(down);
-    handleNextPlace(racerA, RacerPiece(1, 1, racerA.getSymbol()));
+    handleNextPlace(racerA, RacerPiece(1, 3, racerA.getSymbol()));
     handleNextPlace(racerA, racerA.nextHead());
     handleNextPlace(racerA, racerA.nextHead());
     racerA.setDirection(right);

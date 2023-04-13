@@ -2,7 +2,7 @@
 #include <ncurses.h>
 #include "include/Game/Board.hpp"
 #include "include/Game/Game.hpp"
-#include "include/Menu/menu.h"
+#include "include/Menu/Menu.hpp"
 
 /**
  * Responsible for the main loop and ending the game.
@@ -18,33 +18,44 @@ int main(int argc, char **argv)
     noecho();
     curs_set(0);
 
-    Game game(BOARD_ROWS, BOARD_COLS);
+    int maxX, maxY, playable;
+    getmaxyx(stdscr, maxY, maxX);
 
-    Menu menu(10, 10, 30, 10);
-    menu.AddItem("Start Game");
-    menu.AddItem("Quit");
-
-    int choice = menu.GetChoice();
-
-    switch (choice) {
-    case 0:
-        // Starts the game.
-        break;
-    case 1:
-        //Exits the game.
-        //game_over = true;
-        break;
-    }
-
-    while (!game.isOver())
+    if (maxY > BOARD_ROWS && maxX > BOARD_COLS)
     {
-        game.processInput();
-        game.updateState();
-        game.redraw();
-    }
-    endwin();
+        Menu menu(BOARD_ROWS, BOARD_COLS);
+        menu.printLogo();
+        menu.AddItem("Start Game");
+        menu.AddItem("Quit");
 
-    std::cout << "Game over! " << game.getLoser() << " loses!" << std::endl;
+        menu.refreshMenu();
+        int choice = menu.GetChoice();
+        Game game(BOARD_ROWS, BOARD_COLS);
+
+        switch (choice)
+        {
+        case 0:
+            // Starts the game.
+            while (!game.isOver())
+            {
+                game.processInput();
+                game.updateState();
+                game.redraw();
+            }
+            break;
+        case 1:
+            break;
+        }
+        endwin();
+    }
+    else
+    {
+        endwin();
+        std::cout << std::endl
+                  << "Please make sure your window is at least " 
+                  << BOARD_ROWS << " x " << BOARD_COLS 
+                  << " characters." << std::endl;
+    }
 
     return 0;
 }
