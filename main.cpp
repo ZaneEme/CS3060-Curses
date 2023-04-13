@@ -45,6 +45,9 @@ int main(int argc, char **argv)
                 game.updateState();
                 game.redraw();
             }
+            ExitMenu exitMenu(BOARD_ROWS, BOARD_COLS);
+            exitMenu.printResults();
+            exitMenu.handleSelection();
             break;
         case 1:
             //Exits the game.
