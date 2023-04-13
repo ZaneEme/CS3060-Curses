@@ -20,15 +20,14 @@ int main(int argc, char **argv)
 
     int maxX, maxY, playable;
     getmaxyx(stdscr, maxY, maxX);
+    Menu menu(BOARD_ROWS, BOARD_COLS);
 
     if (maxY > BOARD_ROWS && maxX > BOARD_COLS)
     {
-        Menu menu(BOARD_ROWS, BOARD_COLS);
         menu.printLogo();
         menu.AddItem("Start Game");
         menu.AddItem("Quit");
 
-        menu.refreshMenu();
         int choice = menu.GetChoice();
         Game game(BOARD_ROWS, BOARD_COLS);
 
@@ -44,6 +43,7 @@ int main(int argc, char **argv)
             }
             break;
         case 1:
+            //Exits the game.
             break;
         }
         endwin();
