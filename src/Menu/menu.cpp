@@ -69,8 +69,8 @@ void Menu::refresh()
   wrefresh(menu_window);
 }
 
-
-void Menu::construct(int height, int width) {
+void Menu::construct(int height, int width)
+{
   int maxX, maxY;
   getmaxyx(stdscr, maxY, maxX);
   this->height = height;
@@ -81,18 +81,20 @@ void Menu::construct(int height, int width) {
   keypad(menu_window, true);
 }
 
-void Menu::printLogo() {
-    std::string logo[] = {
-    "   ####### ######  ####### #     # ", 
-    "      #    #     # #     # ##    # ",
-    "      #    #     # #     # # #   # ",
-    "      #    ######  #     # #  #  # ",
-    "      #    #   #   #     # #   # # ",
-    "      #    #    #  #     # #    ## ",
-    "      #    #     # ####### #     # ",
-    };
-                                    
-  for(int i = 0; i < 7; i++) {
+void Menu::printLogo()
+{
+  std::string logo[] = {
+      "   ####### ######  ####### #     # ",
+      "      #    #     # #     # ##    # ",
+      "      #    #     # #     # # #   # ",
+      "      #    ######  #     # #  #  # ",
+      "      #    #   #   #     # #   # # ",
+      "      #    #    #  #     # #    ## ",
+      "      #    #     # ####### #     # ",
+  };
+
+  for (int i = 0; i < 7; i++)
+  {
     mvwaddstr(menu_window, i + 2, (width / 2) - 19, logo[i].c_str());
   }
 }

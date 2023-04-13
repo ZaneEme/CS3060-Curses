@@ -4,15 +4,15 @@
 #include <vector>
 #include <string>
 
-class Menu {
-  private:
+class Menu
+{
+private:
   WINDOW *menu_window;
   std::vector<std::string> items;
   int selected_index;
   int width, height;
 
-
- public:
+public:
   Menu(int width, int height);
   ~Menu();
 

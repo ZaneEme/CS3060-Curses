@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include "../../include/Game/Drawable.hpp"
 /**
+ *
  * A base class for objects written to the board.
  * All subclasses must include a location and a char.
  */

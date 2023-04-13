@@ -9,9 +9,10 @@
 class Empty : public Drawable
 {
 private:
-int x;
-int y;
-chtype icon;
+    int x;
+    int y;
+    chtype icon;
+
 public:
     /**
      * The default constructor.

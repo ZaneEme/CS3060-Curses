@@ -6,7 +6,6 @@
 #include "../../include/Game/Racer.hpp"
 #include "../../include/Game/Game.hpp"
 
-
 /**
  * Checks if a the next piece will hit a wall or the enemy,
  * if not adds to the head of the racer.
@@ -40,7 +39,7 @@ Game::Game(int height, int width)
  * @see Game()
  */
 void Game::initialize()
-{   
+{
     racerA = Racer('#');
     racerB = Racer('*');
     board.initialize();

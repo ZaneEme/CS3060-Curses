@@ -52,8 +52,8 @@ int main(int argc, char **argv)
     {
         endwin();
         std::cout << std::endl
-                  << "Please make sure your window is at least " 
-                  << BOARD_ROWS << " x " << BOARD_COLS 
+                  << "Please make sure your window is at least "
+                  << BOARD_ROWS << " x " << BOARD_COLS
                   << " characters." << std::endl;
     }
 

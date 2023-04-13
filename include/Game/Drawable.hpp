@@ -9,7 +9,7 @@ class Drawable
 {
 public:
     Drawable();
-    
+
     Drawable(int y, int x, chtype icon);
 
     int getX();
