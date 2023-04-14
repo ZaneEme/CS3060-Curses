@@ -3,6 +3,7 @@
 #include "include/Game/Board.hpp"
 #include "include/Game/Game.hpp"
 #include "include/Menu/Menu.hpp"
+//#include "include/Menu/exitMenu.hpp"
 
 /**
  * Responsible for the main loop and ending the game.
@@ -45,9 +46,9 @@ int main(int argc, char **argv)
                 game.updateState();
                 game.redraw();
             }
-            ExitMenu exitMenu(BOARD_ROWS, BOARD_COLS);
-            exitMenu.printResults();
-            exitMenu.handleSelection();
+            // ExitMenu exitMenu(BOARD_ROWS, BOARD_COLS);
+            // exitMenu.printResults();
+            // exitMenu.handleSelection();
             break;
         case 1:
             //Exits the game.

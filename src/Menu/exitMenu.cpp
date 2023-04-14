@@ -1,8 +1,8 @@
 #include <ncurses.h>
 #include <string>
-#include "../../include/Menu/exitMenu.hpp"
+#include "../../include/Menu/ExitMenu.hpp"
 
-ExitMenu::Menu(int height, int width)
+ExitMenu::ExitMenu(int height, int width)
 {
   cbreak();
   construct(height, width);
@@ -25,11 +25,11 @@ void ExitMenu::refreshMenu()
   refresh();
 }
 
-void ExitMenu::handleSelection(){
+// void ExitMenu::handleSelection(){
 
-}
+// }
 
-ExitMenu::~Menu()
+ExitMenu::~ExitMenu()
 {
   delwin(menu_window);
   endwin();
@@ -87,7 +87,7 @@ void ExitMenu::construct(int height, int width)
   keypad(menu_window, true);
 }
 
-void ExitMenu::printResults()
+void ExitMenu::printLogo()
 {
   std::string logo[] = {
       "   ####### ######  ####### #     # ",
