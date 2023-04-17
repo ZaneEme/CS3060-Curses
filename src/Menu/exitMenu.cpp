@@ -25,10 +25,6 @@ void ExitMenu::refreshMenu()
   refresh();
 }
 
-// void ExitMenu::handleSelection(){
-
-// }
-
 ExitMenu::~ExitMenu()
 {
   delwin(menu_window);
@@ -87,16 +83,15 @@ void ExitMenu::construct(int height, int width)
   keypad(menu_window, true);
 }
 
-void ExitMenu::printLogo()
+void ExitMenu::printResult()
 {
   std::string logo[] = {
-      "   ####### ######  ####### #     # ",
-      "      #    #     # #     # ##    # ",
-      "      #    #     # #     # # #   # ",
-      "      #    ######  #     # #  #  # ",
-      "      #    #   #   #     # #   # # ",
-      "      #    #    #  #     # #    ## ",
-      "      #    #     # ####### #     # ",
+      "   ###### ###### ###### #####  ||",
+      "   #      #    # # ## # #      ||",
+      "   #      #    # # ## # ###    ||",
+      "   #  ### ###### #    # #      ||",
+      "   #    # #    # #    # #        ",
+      "   ###### #    # #    # #####  **",
   };
 
   for (int i = 0; i < 7; i++)

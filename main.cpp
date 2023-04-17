@@ -3,7 +3,7 @@
 #include "include/Game/Board.hpp"
 #include "include/Game/Game.hpp"
 #include "include/Menu/Menu.hpp"
-//#include "include/Menu/exitMenu.hpp"
+#include "include/Menu/exitMenu.hpp"
 
 /**
  * Responsible for the main loop and ending the game.
@@ -36,25 +36,68 @@ int main(int argc, char **argv)
         int choice = menu.GetChoice();
 
         Game game(BOARD_ROWS, BOARD_COLS);
-        switch (choice)
-        {
-        case 0:
+
+        if (choice == 0) {
             // Starts the game.
-            while (!game.isOver())
-            {
-                game.processInput();
-                game.updateState();
-                game.redraw();
+            int gameRunning = 1;
+            while (gameRunning) {
+                while (!game.isOver())
+                {
+                    game.processInput();
+                    game.updateState();
+                    game.redraw();
+                }
+
+                ExitMenu exitMenu(BOARD_ROWS, BOARD_COLS);
+                exitMenu.printResult();
+                exitMenu.AddItem("Restart");
+                exitMenu.AddItem("Quit");
+                exitMenu.refreshMenu();
+                int exitChoice = exitMenu.GetChoice();
+                
+                if (exitChoice == 0) {
+                    Game newgame(BOARD_ROWS, BOARD_COLS);
+                    game = newgame;
+                } else {
+                    gameRunning = 0;
+                }
             }
-            // ExitMenu exitMenu(BOARD_ROWS, BOARD_COLS);
-            // exitMenu.printResults();
-            // exitMenu.handleSelection();
-            break;
-        case 1:
-            //Exits the game.
-            break;
-        }
+        }  
         endwin();
+        
+        // switch (choice)
+        // {
+        // case 0:
+        //     // Starts the game.
+        //     int gameRunning = 1;
+        //     while (gameRunning) {
+        //         while (!game.isOver())
+        //         {
+        //             game.processInput();
+        //             game.updateState();
+        //             game.redraw();
+        //         }
+
+        //         ExitMenu exitMenu(BOARD_ROWS, BOARD_COLS);
+        //         exitMenu.printResult();
+        //         exitMenu.AddItem("Restart");
+        //         exitMenu.AddItem("Quit");
+        //         exitMenu.refreshMenu();
+        //         int exitChoice = exitMenu.GetChoice();
+                
+        //         if (exitChoice == 0) {
+        //             Game newgame(BOARD_ROWS, BOARD_COLS);
+        //             game = newgame;
+        //         } else {
+        //             gameRunning = 0;
+        //         }
+        //     }
+        //     break;
+        // case 1:
+        //     // Exits the game.
+        //     break;
+        // }
+        // endwin();
     }
     else
     {

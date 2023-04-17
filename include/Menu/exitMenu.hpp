@@ -21,5 +21,5 @@ public:
   void refresh();
   void refreshMenu();
   void construct(int height, int width);
-  void printLogo();
+  void printResult();
 };
