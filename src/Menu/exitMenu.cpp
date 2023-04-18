@@ -19,7 +19,7 @@ void ExitMenu::refreshMenu()
       wattron(menu_window, A_REVERSE);
     }
 
-    mvwaddstr(menu_window, (height / 2) + i, (width / 2) - (items[i].length() / 2), items[i].c_str());
+    mvwaddstr(menu_window, (height / 2) + i + 6, (width / 2) - (items[i].length() / 2), items[i].c_str());
     wattroff(menu_window, A_REVERSE);
   }
   refresh();
@@ -86,16 +86,28 @@ void ExitMenu::construct(int height, int width)
 void ExitMenu::printResult()
 {
   std::string logo[] = {
-      "######  ######  ######  #####  ||",
-      "#       #    #  # ## #  #      ||",
-      "#       #    #  # ## #  ###    ||",
-      "#  ###  ######  #    #  #      ||",
-      "#    #  #    #  #    #  #        ",
-      "######  #    #  #    #  #####  **",
+      "  ######  ######  ######  ##### ",
+      "  #       #    #  # ## #  #     ",
+      "  #  ###  ######  # ## #  ###   ",
+      "  #    #  #    #  #    #  #     ",
+      "  ######  #    #  #    #  ##### ",
   };
 
-  for (int i = 0; i < 6; i++)
+    std::string logo2[] = {
+      "######  #   #  #####  #####  ||",
+      "#    #  #   #  #      #    # ||",
+      "#    #  #   #  ###    #####  ||",
+      "#    #   # #   #      #    #   ",
+      "######    #    #####  #    # **",
+  };
+
+  for (int i = 0; i < 5; i++)
   {
-    mvwaddstr(menu_window, i + 2, (width / 2) - 17, logo[i].c_str());
+    mvwaddstr(menu_window, i + 2, (width / 2) - 19, logo[i].c_str());
+  }
+
+  for (int i = 0; i < 5; i++)
+  {
+    mvwaddstr(menu_window, i + 7, (width / 2) - 13, logo2[i].c_str());
   }
 }
