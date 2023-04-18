@@ -3,6 +3,7 @@
 
 #include "../../include/Game/Board.hpp"
 #include "../../include/Game/Racer.hpp"
+#include "../../include/Game/RacerPiece.hpp"
 #include "../../include/Game/Game.hpp"
 
 /**

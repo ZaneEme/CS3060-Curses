@@ -1,7 +1,10 @@
 #pragma once
+#include <iostream>
+#include <fstream>
 #include <ncurses.h>
 #include <queue>
 #include "Drawable.hpp"
+#include "RacerPiece.hpp"
 
 /**
  * Stores the four possible directions a racer can be facing.
@@ -12,18 +15,6 @@ enum Direction
     down = 1,
     left = -2,
     right = 2
-};
-
-/**
- * A section of a racer. Has a location and an icon.
- * @see Racer()
- */
-class RacerPiece : public Drawable
-{
-public:
-    RacerPiece();
-
-    RacerPiece(int y, int x, chtype icon);
 };
 
 /**
@@ -69,4 +60,8 @@ public:
      * @return a RacerPiece at the next location
      */
     RacerPiece nextHead();
+
+    // adds >> and << operators for RacerPiece objects
+    friend std::ofstream &operator<<(std::ofstream &ofs, RacerPiece s);
+    friend std::ifstream &operator>>(std::ifstream &ifs, RacerPiece &s);
 };

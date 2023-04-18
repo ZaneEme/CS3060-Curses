@@ -13,10 +13,12 @@ public:
     Drawable(int y, int x, chtype icon);
 
     int getX();
-
     int getY();
-
     chtype getIcon();
+
+    void setX(int x);
+    void setY(int y);
+    void setIcon(chtype icon);
 
 protected:
     int y, x;

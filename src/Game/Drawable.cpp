@@ -33,3 +33,18 @@ chtype Drawable::getIcon()
 {
     return icon;
 }
+
+void Drawable::setX(int x)
+{
+    this->x = x;
+}
+
+void Drawable::setY(int y)
+{
+    this->y = y;
+}
+
+void Drawable::setIcon(chtype icon)
+{
+    this->icon = icon;
+}

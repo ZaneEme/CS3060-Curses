@@ -86,17 +86,17 @@ void Menu::construct(int height, int width)
 void Menu::printLogo()
 {
   std::string logo[] = {
-      "   ####### ######  ####### #     # ",
-      "      #    #     # #     # ##    # ",
-      "      #    #     # #     # # #   # ",
-      "      #    ######  #     # #  #  # ",
-      "      #    #   #   #     # #   # # ",
-      "      #    #    #  #     # #    ## ",
-      "      #    #     # ####### #     # ",
+      "#######  ######   #######  #     # ",
+      "   #     #     #  #     #  ##    # ",
+      "   #     #     #  #     #  # #   # ",
+      "   #     ######   #     #  #  #  # ",
+      "   #     #   #    #     #  #   # # ",
+      "   #     #    #   #     #  #    ## ",
+      "   #     #     #  #######  #     # ",
   };
 
   for (int i = 0; i < 7; i++)
   {
-    mvwaddstr(menu_window, i + 2, (width / 2) - 19, logo[i].c_str());
+    mvwaddstr(menu_window, i + 2, (width / 2) - 17, logo[i].c_str());
   }
 }

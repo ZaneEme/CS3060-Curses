@@ -3,7 +3,7 @@
 #include "include/Game/Board.hpp"
 #include "include/Game/Game.hpp"
 #include "include/Menu/Menu.hpp"
-#include "include/Menu/exitMenu.hpp"
+#include "include/Menu/ExitMenu.hpp"
 
 /**
  * Responsible for the main loop and ending the game.
@@ -56,8 +56,9 @@ int main(int argc, char **argv)
                 int exitChoice = exitMenu.GetChoice();
                 
                 if (exitChoice == 0) {
-                    Game newgame(BOARD_ROWS, BOARD_COLS);
-                    game = newgame;
+                    game.initialize();
+                    // Game newgame(BOARD_ROWS, BOARD_COLS);
+                    // game = newgame;
                 } else {
                     gameRunning = 0;
                 }

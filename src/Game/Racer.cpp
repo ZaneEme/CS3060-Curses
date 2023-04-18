@@ -1,22 +1,9 @@
 #include <ncurses.h>
 #include <queue>
+#include <sstream>
+#include <string>
 #include "../../include/Game/Racer.hpp"
-
-/**
- * A section of a racer. Has a location and an icon.
- * @see Racer()
- */
-RacerPiece::RacerPiece()
-{
-    this->x = this->y = 0;
-    this->icon = '#';
-}
-RacerPiece::RacerPiece(int y, int x, chtype icon)
-{
-    this->y = y;
-    this->x = x;
-    this->icon = icon;
-}
+#include "../../include/Game/RacerPiece.hpp"
 
 /**
  * Main section of the racer. Consists of a symbol and a queue of type RacerPiece.
