@@ -27,11 +27,6 @@ void Racer::addPiece(RacerPiece piece)
     prev_pieces.push(piece);
 }
 
-void Racer::removePiece()
-{
-    prev_pieces.pop();
-}
-
 RacerPiece Racer::tail()
 {
     return prev_pieces.front();
@@ -40,11 +35,6 @@ RacerPiece Racer::tail()
 RacerPiece Racer::head()
 {
     return prev_pieces.back();
-}
-
-Direction Racer::getDirection()
-{
-    return cur_dir;
 }
 
 chtype Racer::getSymbol()

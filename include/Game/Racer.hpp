@@ -35,13 +35,9 @@ public:
 
     void addPiece(RacerPiece piece);
 
-    void removePiece();
-
     RacerPiece tail();
 
     RacerPiece head();
-
-    Direction getDirection();
 
     chtype getSymbol();
 
