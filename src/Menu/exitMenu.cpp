@@ -86,11 +86,11 @@ void ExitMenu::construct(int height, int width)
 void ExitMenu::printResult()
 {
   std::string logo[] = {
-      "  ######  ######  ######  ##### ",
-      "  #       #    #  # ## #  #     ",
-      "  #  ###  ######  # ## #  ###   ",
-      "  #    #  #    #  #    #  #     ",
-      "  ######  #    #  #    #  ##### ",
+      "######  ######  ######  #####",
+      "#       #    #  # ## #  #    ",
+      "#  ###  ######  # ## #  ###  ",
+      "#    #  #    #  #    #  #    ",
+      "######  #    #  #    #  #####",
   };
 
     std::string logo2[] = {
@@ -103,7 +103,7 @@ void ExitMenu::printResult()
 
   for (int i = 0; i < 5; i++)
   {
-    mvwaddstr(menu_window, i + 2, (width / 2) - 19, logo[i].c_str());
+    mvwaddstr(menu_window, i + 2, (width / 2) - 16, logo[i].c_str());
   }
 
   for (int i = 0; i < 5; i++)
