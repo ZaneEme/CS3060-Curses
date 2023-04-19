@@ -83,7 +83,7 @@ void ExitMenu::construct(int height, int width)
   keypad(menu_window, true);
 }
 
-void ExitMenu::printResult()
+void ExitMenu::printResult(char loser)
 {
   std::string logo[] = {
       "######  ######  ######  #####",
@@ -110,4 +110,7 @@ void ExitMenu::printResult()
   {
     mvwaddstr(menu_window, i + 7, (width / 2) - 13, logo2[i].c_str());
   }
+
+  std::string loserMessage = std::string("The loser is: ") + loser;
+  mvwaddstr(menu_window, 13, (width / 2) - 8, loserMessage.c_str());
 }

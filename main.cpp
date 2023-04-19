@@ -49,7 +49,7 @@ int main(int argc, char **argv)
                 }
 
                 ExitMenu exitMenu(BOARD_ROWS, BOARD_COLS);
-                exitMenu.printResult();
+                exitMenu.printResult(game.getLoser());
                 exitMenu.AddItem("Restart");
                 exitMenu.AddItem("Quit");
                 exitMenu.refreshMenu();
