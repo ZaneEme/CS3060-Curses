@@ -31,6 +31,13 @@ Menu::~Menu()
   endwin();
 }
 
+void Menu::initialize() {
+  printLogo();
+  AddItem("Start Game");
+  AddItem("Load Game");
+  AddItem("Quit");
+}
+
 void Menu::AddItem(std::string text)
 {
   items.push_back(text);

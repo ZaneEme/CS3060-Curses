@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <ncurses.h>
-#include <queue>
+#include <deque>
 #include "Drawable.hpp"
 #include "RacerPiece.hpp"
 
@@ -24,7 +24,7 @@ enum Direction
 class Racer
 {
 private:
-    std::queue<RacerPiece> prev_pieces;
+    std::deque<RacerPiece> prev_pieces;
     Direction cur_dir;
     chtype symbol;
 
@@ -39,7 +39,11 @@ public:
 
     RacerPiece head();
 
+    std::deque<RacerPiece> getBody();
+
     chtype getSymbol();
+
+    void clear();
 
     /**
      * If the new direction isn't opposite of the current direction
@@ -57,7 +61,7 @@ public:
      */
     RacerPiece nextHead();
 
-    // adds >> and << operators for RacerPiece objects
-    friend std::ofstream &operator<<(std::ofstream &ofs, RacerPiece s);
-    friend std::ifstream &operator>>(std::ifstream &ifs, RacerPiece &s);
+    // adds >> and << operators for Racer objects
+    friend std::ofstream &operator<<(std::ofstream &ofs, Racer s);
+    friend std::ifstream &operator>>(std::ifstream &ifs, Racer &s);
 };

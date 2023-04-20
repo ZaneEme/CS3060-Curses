@@ -10,6 +10,13 @@ ExitMenu::ExitMenu(int height, int width)
   refreshMenu();
 }
 
+void ExitMenu::initialize(char loser) {
+  printResult(loser);
+  AddItem("Restart");
+  AddItem("Quit");
+  refreshMenu();
+}
+
 void ExitMenu::refreshMenu()
 {
   for (int i = 0; i < int(items.size()); i++)

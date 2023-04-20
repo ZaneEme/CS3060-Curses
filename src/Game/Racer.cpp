@@ -24,17 +24,25 @@ Racer::Racer(chtype icon)
 
 void Racer::addPiece(RacerPiece piece)
 {
-    prev_pieces.push(piece);
+    prev_pieces.push_front(piece);
+}
+
+void Racer::clear() {
+    prev_pieces.clear();
 }
 
 RacerPiece Racer::tail()
 {
-    return prev_pieces.front();
+    return prev_pieces.back();
+}
+
+std::deque<RacerPiece> Racer::getBody() {
+    return prev_pieces;
 }
 
 RacerPiece Racer::head()
 {
-    return prev_pieces.back();
+    return prev_pieces.front();
 }
 
 chtype Racer::getSymbol()
@@ -81,4 +89,47 @@ RacerPiece Racer::nextHead()
         break;
     }
     return RacerPiece(row, col, this->symbol);
+}
+
+/**
+ * Overloads the << operator to write a Racer to a given ofstream
+ * Ex: ofstream << Racer writes:
+ *  x,y,icon to the stream
+ */
+std::ofstream &operator<<(std::ofstream &ofs, Racer r)
+{
+    std::deque<RacerPiece> body = r.getBody();
+    for(auto piece = body.end(); piece != body.begin(); piece--) {
+        ofs << std::to_string(piece->getY()) << ',' << piece->getX() << ',' << piece->getIcon() << std::endl;
+    }
+    return ofs;
+}
+
+std::ifstream &operator>>(std::ifstream &ifs, Racer &r)
+{
+    std::string line;
+    while (std::getline(ifs, line))
+    {   
+        std::stringstream ss(line);
+        std::string token;
+        RacerPiece piece;
+
+        if (std::getline(ss, token, ','))
+        {
+            piece.setY(stoi(token));
+        }
+
+        if (std::getline(ss, token, ','))
+        {
+            piece.setX(stoi(token));
+        }
+
+        if (std::getline(ss, token, ','))
+        {
+            int ascii = std::stoi(token);
+            piece.setIcon((chtype)static_cast<char>(ascii));
+        }
+        r.addPiece(piece);
+    }
+    return ifs;
 }

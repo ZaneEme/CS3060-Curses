@@ -1,7 +1,5 @@
 #include <ncurses.h>
 #include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
 #include <fstream>
 #include <iostream>
 
@@ -9,6 +7,16 @@
 #include "../../include/Game/Racer.hpp"
 #include "../../include/Game/RacerPiece.hpp"
 #include "../../include/Game/Game.hpp"
+
+void Game::runGame()
+{
+    while (!isOver())
+    {
+        processInput();
+        updateState();
+        redraw();
+    }
+}
 
 /**
  * Checks if a the next piece will hit a wall or the enemy,
@@ -102,8 +110,7 @@ void Game::processInput()
         break;
     case 'r':
         saveGame();
-        refresh();
-        sleep(3);
+        redraw();
         break;
     case 'p':
         board.setTimeout(-1);
@@ -144,62 +151,59 @@ char Game::getLoser()
     return loser;
 }
 
-void Game::saveGame() {
-    FILE* fp;
-    try {
-        // Open the file for writing.
-        fp = fopen("../../gamecontents.txt", "w");
-    } catch (...) {
-        //mvwaddstr(menu_window, 8, (width / 2) - 13, "File could not be saved!");
-        printw("File could not be saved!");
+void Game::saveGame()
+{
+    try
+    {
+        // Open the files for writing.
+        std::ofstream racerOne("bin/racerOne.csv", std::ios::trunc);
+        std::ofstream racerTwo("bin/racerTwo.csv", std::ios::trunc);
+
+        racerOne << this->racerA;
+        racerTwo << this->racerB;
+
+        racerOne.close();
+        racerTwo.close();
+    }
+    catch (std::exception &e)
+    {
+        std::cerr << "File could not be saved! Exception:" << std::endl;
+        std::cerr << e.what() << std::endl;
         return;
     }
-
-    // Get the size of the game board.
-    int width = getmaxx(stdscr);
-    int height = getmaxy(stdscr);
-
-    // Write the size of the game board to the file.
-    fprintf(fp, "%d %d\n", width, height);
-
-    // Write the contents of the game board to the file.
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            char ch = mvinch(y, x);
-            fprintf(fp, "%c", ch);
-        }
-        fprintf(fp, "\n");
-    }
-
-    fclose(fp);
 }
 
-void Game::loadGame() {
-    FILE* fp;
-    try {
-        // Open the file for reading.
-        fp = fopen("../../gamecontents.txt", "r");
-    } catch (...) {
-        //mvwaddstr(menu_window, 8, (width / 2) - 13, "File could not be loaded!");
-        printw("File could not be loaded!");
-        return;
-    }
+/**
+ * Reads from bin/racerOne and bin/racerTwo into the two racer objects
+ */
+void Game::loadGame()
+{
+    try
+    {
+        racerA.clear();
+        racerB.clear();
+        // Open the files for reading.
+        std::ifstream racerOne("bin/racerOne.csv");
+        std::ifstream racerTwo("bin/racerTwo.csv");
 
-    // Get the size of the game board.
-    int width, height;
-    fscanf(fp, "%d %d", &width, &height);
-    clear();
+        racerOne >> this->racerA;
+        racerTwo >> this->racerB;
 
-    // Read the contents of the game board from the file.
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            char ch;
-            fscanf(fp, "%c", &ch);
-            mvaddch(y, x, ch);
+        racerOne.close();
+        racerTwo.close();
+
+        for (RacerPiece i : racerA.getBody()) {
+            board.add(i);
+        }
+        for (RacerPiece i : racerB.getBody()) {
+            board.add(i);
         }
     }
-
-    // Refresh the screen.
-    refresh();
-    fclose(fp);
+    catch (std::exception &e)
+    {
+        std::cerr << "File could not be loaded! Exception:" << std::endl;
+        std::cerr << e.what() << std::endl;
+        return;
+    }
+    redraw();
 }

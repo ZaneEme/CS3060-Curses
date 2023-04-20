@@ -43,6 +43,8 @@ public:
      */
     void updateState();
 
+    void runGame();
+
     void redraw();
 
     bool isOver();

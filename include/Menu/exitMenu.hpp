@@ -18,6 +18,7 @@ public:
 
   void AddItem(std::string text);
   int GetChoice();
+  void initialize(char loser);
   void refresh();
   void refreshMenu();
   void construct(int height, int width);
