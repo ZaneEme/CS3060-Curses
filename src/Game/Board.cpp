@@ -2,6 +2,7 @@
 #include "../../include/Game/Drawable.hpp"
 #include <stdlib.h>
 #include <ncurses.h>
+
 /**
  * Creates a new board with 0 width and 0 height.
  */

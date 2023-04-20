@@ -48,4 +48,7 @@ public:
     bool isOver();
 
     char getLoser();
+
+    void saveGame();
+    void loadGame();
 };

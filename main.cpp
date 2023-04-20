@@ -27,6 +27,7 @@ int main(int argc, char **argv)
         Menu menu(BOARD_ROWS, BOARD_COLS);
         menu.printLogo();
         menu.AddItem("Start Game");
+        menu.AddItem("Load Game");
         menu.AddItem("Quit");
 
         // refresh to show initial screen
@@ -63,7 +64,9 @@ int main(int argc, char **argv)
                     gameRunning = 0;
                 }
             }
-        }  
+        } else if (choice == 1) {
+            game.loadGame();
+        }
         endwin();
         
         // switch (choice)
