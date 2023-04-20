@@ -1,5 +1,4 @@
 rm -rf build
-
 if ! cmake --version > /dev/null; then
     echo "Cmake not installed."
     echo "To install it please run:"
