@@ -27,7 +27,7 @@ RacerPiece::RacerPiece(int y, int x, chtype icon)
  */
 std::ofstream &operator<<(std::ofstream &ofs, RacerPiece r)
 {
-    ofs << r.getY() << ',' << r.getX() << ',' << r.getIcon() << std::endl;
+    ofs << std::to_string(r.getY()) << ',' << r.getX() << ',' << r.getIcon() << std::endl;
     return ofs;
 }
 
