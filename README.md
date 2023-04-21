@@ -41,6 +41,8 @@ The game starts with two racers in the top corners. Each racer leaves a trail be
 ### Controls:
 * P to pause
 * Q to quit
+* r to save
+
 * Player 1:
     
     WASD
