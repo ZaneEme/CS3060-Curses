@@ -10,6 +10,7 @@ ExitMenu::ExitMenu(int height, int width)
   refreshMenu();
 }
 
+// Adds items to the screen for selection by user
 void ExitMenu::initialize(char loser) {
   printResult(loser);
   AddItem("Restart");
@@ -72,6 +73,7 @@ int ExitMenu::GetChoice()
   return selected_index;
 }
 
+// Refreshes the screen to display new content
 void ExitMenu::refresh()
 {
   box(menu_window, 0, 0);
@@ -90,6 +92,7 @@ void ExitMenu::construct(int height, int width)
   keypad(menu_window, true);
 }
 
+// Prints the game over logo on exit screen
 void ExitMenu::printResult(char loser)
 {
   std::string logo[] = {

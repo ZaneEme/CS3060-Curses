@@ -10,6 +10,7 @@ Menu::Menu(int height, int width)
   refreshMenu();
 }
 
+// Reloads the screen to display the content
 void Menu::refreshMenu()
 {
   for (int i = 0; i < int(items.size()); i++)
@@ -31,6 +32,7 @@ Menu::~Menu()
   endwin();
 }
 
+// Prints options for user to select
 void Menu::initialize() {
   printLogo();
   AddItem("Start Game");
@@ -90,6 +92,7 @@ void Menu::construct(int height, int width)
   keypad(menu_window, true);
 }
 
+// Prints game logo on start screen
 void Menu::printLogo()
 {
   std::string logo[] = {
